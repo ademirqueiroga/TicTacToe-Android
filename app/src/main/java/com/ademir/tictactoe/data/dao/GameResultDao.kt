@@ -23,4 +23,7 @@ interface GameResultDao {
     @Delete
     fun delete(gameResult: GameResult)
 
+    @Query("DELETE FROM games")
+    fun drop()
+
 }

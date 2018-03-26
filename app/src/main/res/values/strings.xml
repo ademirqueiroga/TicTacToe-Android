@@ -21,6 +21,7 @@
     <string name="error_search">Something went wrong while loading the images. Try again.</string>
     <string name="text_something_went_wrong">Wow! Something wen\'t wrong. Touch here to try again.</string>
     <string name="text_nothing_found">No images found :(</string>
-    <string name="text_zero_matches">There aren\'t any matches played yet. Go find someone to play!</string>
+    <string name="text_zero_matches">There\'s no results to show. Go find someone to play!</string>
+    <string name="clear">Clear</string>
 
 </resources>
