@@ -118,7 +118,7 @@ class BoardAdapter(context: Context) : RecyclerView.Adapter<RecyclerView.ViewHol
                 iv_picture.load(imagesPath[cell.value], defaultImages[cell.value])
             }
             if (board.isGameOver() && cell in board.victoryCells) {
-                itemView.setBackgroundResource(R.color.colorAccent_50)
+                itemView.setBackgroundResource(R.color.colorAccent_30)
             } else {
                 itemView.setBackgroundResource(R.color.colorPrimaryDark)
             }

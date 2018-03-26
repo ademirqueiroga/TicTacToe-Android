@@ -1,6 +1,7 @@
 package com.ademir.tictactoe.home.activities
 
 import android.arch.lifecycle.Observer
+import android.os.Build
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
@@ -27,6 +28,14 @@ class ResultsActivity : AppCompatActivity() {
         val adapter = ResultAdapter()
 
         recyclerview.prepare(adapter, LinearLayoutManager(this, VERTICAL, false))
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            recyclerview.viewTreeObserver.addOnScrollChangedListener {
+                var y = recyclerview.scrollY
+                if (y > 26) y = 26
+                toolbar.elevation = y / 1.5f
+            }
+        }
 
         App.database.gameDao().all().observe(this, Observer {
             it?.let {
