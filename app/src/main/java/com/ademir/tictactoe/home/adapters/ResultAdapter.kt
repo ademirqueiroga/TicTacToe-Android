@@ -40,14 +40,18 @@ class ResultAdapter : RecyclerView.Adapter<ResultAdapter.ResultViewHolder>() {
         }
 
         fun bind(result: GameResult) = with(itemView) {
-            val text = if (result.winner == GameResult.CROSS) {
-                context.getString(R.string.text_cross_won)
+            val text: String
+            val placeHolder: Int
+            if (result.winner == GameResult.CROSS) {
+                text = context.getString(R.string.text_cross_won)
+                placeHolder = R.drawable.cross_default
             } else {
-                context.getString(R.string.text_circle_won)
+                text = context.getString(R.string.text_circle_won)
+                placeHolder = R.drawable.circle_default
             }
             tv_winner.text = text
             tv_date.text = dateFormatter.format(Date(result.time))
-            iv_picture.load(result.winnerImagePath)
+            iv_picture.load(result.winnerImagePath, placeHolder)
         }
     }
 

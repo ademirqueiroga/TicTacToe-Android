@@ -49,4 +49,10 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, ResultsActivity::class.java))
         }
     }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        PreferenceManager.getDefaultSharedPreferences(this).edit().clear().apply()
+    }
+
 }
