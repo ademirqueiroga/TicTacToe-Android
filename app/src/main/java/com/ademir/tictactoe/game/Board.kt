@@ -82,7 +82,7 @@ class Board {
 
             // Check the row of the last move
             for (x in 0 until size) {
-                if (cells[Point(x, move.y)]!!.value != value) {
+                if (cells[Point(x, move.y)]?.value != value) {
                     break
                 } else if (x == size - 1) {
                     // Could also just set the status to receive lastMoveCellValue
@@ -99,7 +99,7 @@ class Board {
 
             // Check columns of the las move
             for (y in 0 until size) {
-                if (cells[Point(move.x, y)]!!.value != value) {
+                if (cells[Point(move.x, y)]?.value != value) {
                     break
                 } else if (y == size - 1) {
                     // Could also just set the status to receive lastMoveCellValue
@@ -117,7 +117,7 @@ class Board {
             // If last movement was made in the main diagonal
             if (move.x == move.y) {
                 for (i in 0 until size) {
-                    if (cells[Point(i, i)]!!.value != value) {
+                    if (cells[Point(i, i)]?.value != value) {
                         break
                     } else if (i == size - 1) {
                         // Could also just set the status to receive lastMoveCellValue
@@ -136,7 +136,7 @@ class Board {
             // If last movement was made in the secondary diagonal
             if (move.x + move.y == size - 1) {
                 for (i in 0 until size) {
-                    if (cells[Point(i, (size - 1) - i)]!!.value != value) {
+                    if (cells[Point(i, (size - 1) - i)]?.value != value) {
                         break
                     } else if (i == size - 1) {
                         // Could also just set the status to be receive lastMoveCellValue

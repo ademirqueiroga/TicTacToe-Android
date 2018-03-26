@@ -2,6 +2,7 @@ package com.ademir.tictactoe
 
 import android.app.Application
 import com.ademir.tictactoe.data.GameResultDb
+import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
 /**
@@ -15,7 +16,7 @@ class App : Application() {
     }
 
     companion object {
-        val DISK_IO = Executors.newSingleThreadExecutor()!!
+        val DISK_IO: ExecutorService = Executors.newSingleThreadExecutor()
         lateinit var database: GameResultDb
     }
 

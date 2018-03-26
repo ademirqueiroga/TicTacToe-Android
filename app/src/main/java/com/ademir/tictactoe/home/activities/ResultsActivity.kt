@@ -18,9 +18,11 @@ class ResultsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_results)
         setSupportActionBar(toolbar)
-        supportActionBar!!.title = getString(R.string.text_results)
-        supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        supportActionBar!!.setDisplayShowHomeEnabled(true)
+        supportActionBar?.run {
+            title = getString(R.string.text_results)
+            setDisplayHomeAsUpEnabled(true)
+            setDisplayShowHomeEnabled(true)
+        }
 
         val adapter = ResultAdapter()
 
