@@ -10,7 +10,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="@string/text_type_here"
-        android:imeOptions="actionSearch" />
+        android:imeOptions="actionSearch"
+        android:inputType="text"
+        android:maxLines="1" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_search"
