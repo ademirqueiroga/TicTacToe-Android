@@ -25,13 +25,9 @@ fun RecyclerView.prepare(adapter: RecyclerView.Adapter<*>,
     this.setHasFixedSize(hasFixedSize)
 }
 
-fun ImageView.load(path: String, default: Int = R.drawable.ic_launcher_background) {
-    if (path.isBlank()) {
-        return
-    } else {
-        Picasso.with(context)
-                .load(path)
-                .error(default)
-                .into(this)
-    }
+fun ImageView.load(path: String?, placeholder: Int = R.drawable.ic_launcher_background) {
+    Picasso.with(context)
+            .load(path)
+            .placeholder(placeholder)
+            .into(this)
 }

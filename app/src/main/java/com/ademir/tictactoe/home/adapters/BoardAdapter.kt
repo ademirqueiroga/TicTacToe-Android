@@ -4,11 +4,14 @@ import android.content.Context
 import android.preference.PreferenceManager
 import android.support.v7.widget.RecyclerView
 import android.util.Log
+import android.util.SparseArray
+import android.util.SparseIntArray
 import android.view.View
 import android.view.ViewGroup
 import com.ademir.tictactoe.App
 import com.ademir.tictactoe.R
 import com.ademir.tictactoe.commons.inflate
+import com.ademir.tictactoe.commons.load
 import com.ademir.tictactoe.data.models.GameResult
 import com.ademir.tictactoe.game.Board
 import kotlinx.android.synthetic.main.row_cell.view.*
@@ -22,17 +25,19 @@ class BoardAdapter(context: Context) : RecyclerView.Adapter<RecyclerView.ViewHol
     private val TAG = BoardAdapter::class.java.simpleName
 
     private lateinit var board: Board
-//    private val imagesPath = HashMap<Int, String>(2)
-    private val imagesPath = HashMap<Int, Int>(2).apply {
-        put(Board.Cell.CIRCLE, R.mipmap.ic_launcher_round)
-        put(Board.Cell.CROSS, R.drawable.ic_launcher_background)
+    private val imagesPath = SparseArray<String?>(2)
+    private val defaultImages = SparseIntArray(2).apply {
+        put(Board.Cell.CROSS, R.drawable.cross_default)
+        put(Board.Cell.CIRCLE, R.drawable.circle_default)
     }
 
-//    init {
-//        val prefs = PreferenceManager.getDefaultSharedPreferences(context)
-//        imagesPath[Board.Cell.CROSS] = prefs.getString(Board.PREF_CROSS_IMAGE, "")
-//        imagesPath[Board.Cell.CIRCLE] = prefs.getString(Board.PREF_CIRCLE_IMAGE, "")
-//    }
+    init {
+        // To improve performance this access to sharedPreferences could be removed
+        // and the images paths could be passed to the adapter via the constructor
+        val prefs = PreferenceManager.getDefaultSharedPreferences(context)
+        imagesPath.put(Board.Cell.CROSS, prefs.getString(Board.PREF_CROSS_IMAGE, null))
+        imagesPath.put(Board.Cell.CIRCLE, prefs.getString(Board.PREF_CIRCLE_IMAGE, null))
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return when (viewType) {
@@ -67,17 +72,16 @@ class BoardAdapter(context: Context) : RecyclerView.Adapter<RecyclerView.ViewHol
     override fun onGameOver(status: Int) {
         notifyItemChanged(0)
         App.DISK_IO.execute {
-            val imagePath: String
+            val imagePath: String?
             val winner: String
             if (status == Board.CROSS_WON) {
                 winner = GameResult.CROSS
-//                imagePath = imagesPath[Board.Cell.CROSS]!!
+                imagePath = imagesPath[Board.Cell.CROSS]
             } else {
                 winner = GameResult.Circle
-//                imagePath = imagesPath[Board.Cell.CIRCLE]!!
+                imagePath = imagesPath[Board.Cell.CIRCLE]
             }
-//            App.database.gameDao().insert(GameResult(winner, imagePath))
-            App.database.gameDao().insert(GameResult(winner))
+            App.database.gameDao().insert(GameResult(winner, imagePath))
         }
     }
 
@@ -106,8 +110,7 @@ class BoardAdapter(context: Context) : RecyclerView.Adapter<RecyclerView.ViewHol
             if (cell.value == Board.Cell.EMPTY) {
                 iv_picture.setImageDrawable(null)
             } else {
-//                iv_picture.load(imagesPath[cell.value]!!)
-                iv_picture.setImageResource(imagesPath[cell.value]!!)
+                iv_picture.load(imagesPath[cell.value], defaultImages[cell.value])
             }
         }
 

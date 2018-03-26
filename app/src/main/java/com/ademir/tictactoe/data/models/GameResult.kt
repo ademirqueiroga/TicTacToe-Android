@@ -14,11 +14,11 @@ class GameResult {
 
     var winner: String
 
-    var winnerImagePath: String
+    var winnerImagePath: String?
 
     var time: Long
 
-    constructor(winner: String, winnerImagePath: String = "") {
+    constructor(winner: String, winnerImagePath: String? = null) {
         this.id = 0
         this.winner = winner
         this.winnerImagePath = winnerImagePath

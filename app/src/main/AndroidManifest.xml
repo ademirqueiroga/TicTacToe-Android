@@ -13,10 +13,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".home.BoardActivity"
+            android:name=".home.activities.BoardActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".home.MainActivity"
+            android:name=".home.activities.MainActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,11 +25,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".home.ResultsActivity"
-            android:parentActivityName=".home.MainActivity">
+            android:name=".home.activities.ResultsActivity"
+            android:parentActivityName=".home.activities.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".home.MainActivity" />
+                android:value=".home.activities.MainActivity" />
         </activity>
     </application>
 

@@ -11,7 +11,7 @@ import com.ademir.tictactoe.data.models.GameResult
  * Created by ademir on 24/03/18.
  */
 
-@Database(entities = [GameResult::class], version = 1, exportSchema = false)
+@Database(entities = [GameResult::class], version = 2, exportSchema = false)
 abstract class GameResultDb : RoomDatabase() {
 
     abstract fun gameDao(): GameResultDao

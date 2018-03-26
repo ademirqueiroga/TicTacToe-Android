@@ -1,4 +1,4 @@
-package com.ademir.tictactoe.home
+package com.ademir.tictactoe.home.activities
 
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
@@ -21,6 +21,7 @@ class BoardActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
         supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         supportActionBar!!.setDisplayShowHomeEnabled(true)
+        supportActionBar!!.setDisplayShowTitleEnabled(false)
 
         adapter = BoardAdapter(this)
 

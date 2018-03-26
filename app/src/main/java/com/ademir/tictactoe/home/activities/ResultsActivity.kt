@@ -1,4 +1,4 @@
-package com.ademir.tictactoe.home
+package com.ademir.tictactoe.home.activities
 
 import android.arch.lifecycle.Observer
 import android.os.Bundle
