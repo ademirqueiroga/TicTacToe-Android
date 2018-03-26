@@ -17,7 +17,7 @@ interface GameResultDao {
     @Insert(onConflict = REPLACE)
     fun insert(gameResult: GameResult)
 
-    @Query("SELECT * FROM games")
+    @Query("SELECT * FROM games ORDER BY time DESC")
     fun all(): LiveData<List<GameResult>>
 
     @Delete
