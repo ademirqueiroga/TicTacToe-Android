@@ -13,6 +13,7 @@ class Board {
     private val cells: LinkedHashMap<Point, Cell>
     private var listener: OnGameOverListener?
     private var movesCount: Int
+    var victoryCells = ArrayList<Cell?>()
     val size: Int
     var status: Int = CROSS_TURN
 
@@ -40,10 +41,11 @@ class Board {
         cells.values.forEach { it.reset() }
         status = CROSS_TURN
         movesCount = 0
+        victoryCells.clear()
     }
 
     fun addMove(cell: Cell) {
-        if (movesCount < cellCount) {
+        if (movesCount < cellCount && status !in arrayOf(TIED, CIRCLE_WON, CROSS_WON)) {
             if (cell.value == Cell.EMPTY) {
                 ++movesCount
                 when (status) {
@@ -80,9 +82,12 @@ class Board {
         } else {
             // Check if someone has won
 
-            // Check the row of the last move
+            // Check the row of the last moves
             for (x in 0 until size) {
-                if (cells[Point(x, move.y)]?.value != value) {
+                val cell = cells[Point(x, move.y)]
+                victoryCells.add(cell)
+                if (cell?.value != value) {
+                    victoryCells.clear()
                     break
                 } else if (x == size - 1) {
                     // Could also just set the status to receive lastMoveCellValue
@@ -99,7 +104,10 @@ class Board {
 
             // Check columns of the las move
             for (y in 0 until size) {
-                if (cells[Point(move.x, y)]?.value != value) {
+                val cell = cells[Point(move.x, y)]
+                victoryCells.add(cell)
+                if (cell?.value != value) {
+                    victoryCells.clear()
                     break
                 } else if (y == size - 1) {
                     // Could also just set the status to receive lastMoveCellValue
@@ -117,7 +125,10 @@ class Board {
             // If last movement was made in the main diagonal
             if (move.x == move.y) {
                 for (i in 0 until size) {
-                    if (cells[Point(i, i)]?.value != value) {
+                    val cell = cells[Point(i, i)]
+                    victoryCells.add(cell)
+                    if (cell?.value != value) {
+                        victoryCells.clear()
                         break
                     } else if (i == size - 1) {
                         // Could also just set the status to receive lastMoveCellValue
@@ -136,7 +147,10 @@ class Board {
             // If last movement was made in the secondary diagonal
             if (move.x + move.y == size - 1) {
                 for (i in 0 until size) {
-                    if (cells[Point(i, (size - 1) - i)]?.value != value) {
+                    val cell = cells[Point(i, (size - 1) - i)]
+                    victoryCells.add(cell)
+                    if (cell?.value != value) {
+                        victoryCells.clear()
                         break
                     } else if (i == size - 1) {
                         // Could also just set the status to be receive lastMoveCellValue
@@ -180,6 +194,8 @@ class Board {
     }
 
     data class Cell(val position: Point, var value: Int = EMPTY) {
+
+        var victoryCell: Boolean = false
 
         fun reset() {
             value = EMPTY

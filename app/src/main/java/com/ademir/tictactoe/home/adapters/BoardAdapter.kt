@@ -71,6 +71,11 @@ class BoardAdapter(context: Context) : RecyclerView.Adapter<RecyclerView.ViewHol
 
     override fun onGameOver(status: Int) {
         notifyItemChanged(0)
+        if (board.victoryCells.isNotEmpty()) {
+            for (cell in board.victoryCells.reversed()) {
+                notifyItemChanged(board.getCells().indexOf(cell) + 1)
+            }
+        }
         App.DISK_IO.execute {
             val imagePath: String?
             val winner: String
@@ -111,6 +116,11 @@ class BoardAdapter(context: Context) : RecyclerView.Adapter<RecyclerView.ViewHol
                 iv_picture.setImageDrawable(null)
             } else {
                 iv_picture.load(imagesPath[cell.value], defaultImages[cell.value])
+            }
+            if (board.isGameOver() && cell in board.victoryCells) {
+                itemView.setBackgroundResource(R.color.colorAccent_50)
+            } else {
+                itemView.setBackgroundResource(R.color.colorPrimaryDark)
             }
         }
 
